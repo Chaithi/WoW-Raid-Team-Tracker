@@ -7,6 +7,9 @@
  * Spreadsheets to allow for easy tracking of a raid 	*
  * team for progression through an expansion.			*
  ********************************************************/
+
+var APIKEY = "";
+// Generate an API key for your application at https://dev.battle.net/
  
 function Character(name, realm) {
 	this.name = name;
@@ -69,6 +72,24 @@ function Character(name, realm) {
 	this.nightholdHeroicKills = 0;
 	this.nightholdMythicKills = 0;
 	
+	//Professions
+	if (!this.info.professions.primary[0]) {
+		this.primaryProfession = "None";
+		this.primaryProfessionLevel = 0;
+		this.secondPrimaryProfession = "None";
+		this.secondPrimaryProfessionLevel = 0;
+	} else {
+		this.primaryProfession = this.info.professions.primary[0].name;
+		this.primaryProfessionLevel = this.info.professions.primary[0].rank;
+	} 
+	if (!this.info.professions.primary[1]) {
+		this.secondPrimaryProfession = "None";
+		this.secondPrimaryProfessionLevel = 0;
+	} else {
+		this.secondPrimaryProfession = this.info.professions.primary[1].name;
+		this.secondPrimaryProfessionLevel = this.info.professions.primary[1].rank;
+	}
+	
 	this.progressionCheck = function() {
 		// Emerald Nightmare
 		for (i= 0; i < 7; i++)
@@ -104,7 +125,8 @@ function Character(name, realm) {
 		}
 	}
     this.getCharacterInfo = [
-		this.guild, this.level, this.averageItemLevel,
+		this.guild, this.level, this.primaryProfessionLevel, this.primaryProfession,
+		this.secondPrimaryProfessionLevel, this.secondPrimaryProfession, this.averageItemLevel,
 		this.ilvlHead, this.ilvlNeck, this.ilvlShoulder, this.ilvlBack, this.ilvlChest,
 		this.ilvlWrist, this.ilvlHands, this.ilvlWaist, this.ilvlLegs, this.ilvlFeet,
 		this.ilvlFinger1, this.ilvlFinger2, this.ilvlTrinket1, this.ilvlTrinket2,
@@ -120,7 +142,7 @@ function getInfoFromAPI(name, realm) {
 	var json,
 		info;
 		try {
-			json = UrlFetchApp.fetch("https://us.api.battle.net/wow/character/"+realm+"/"+name+"?fields=items,statistics,progression,talents,guild&locale=en_US&apikey=5597myxp32amte4phvehx3jytcd8bcd8"),
+			json = UrlFetchApp.fetch("https://us.api.battle.net/wow/character/"+realm+"/"+name+"?fields=items,statistics,progression,professions,guild&locale=en_US&apikey=" + APIKEY),
 			info = JSON.parse(json.getContentText());
 		} catch(e) {
 			return e;
@@ -190,6 +212,6 @@ function enchantCheck(item) {
 }
  
 function pull(name, realm) {
-	var char = new Character("Chaithi", "Aerie Peak");
+	var char = new Character(name, realm);
 	return char.getCharacterInfo;
 }
