@@ -15,14 +15,21 @@ function Character(name, realm) {
 	this.name = name;
 	this.realm = realm;
 	//Check that name and realm are filled
-	if(!name) {	return ""; }
-    if(!realm) { return "";	}
+	if(!name) { return ""; }
+    	if(!realm) { return "";	}
 	this.info = getInfoFromAPI(name, realm);
+	// Check to make sure this is an actual character
+	if (this.info.class == null) {
+      		this.getCharacterInfo = "Character Not Found";
+      		return;
+    	}
+    	// Check to see if the character is in a guild
 	if (this.info.guild.name) {
 		this.guild = this.info.guild.name;
 	} else {
 		this.guild = "";
 	}
+	this.class = getCharacterClass(this.info.class);
 	this.level = this.info.level;
 	this.averageItemLevel = this.info.items.averageItemLevelEquipped;
 	// Equipment item levels
@@ -125,7 +132,7 @@ function Character(name, realm) {
 		}
 	}
     this.getCharacterInfo = [
-		this.guild, this.level, this.primaryProfessionLevel, this.primaryProfession,
+		this.guild, this.level, this.class, this.primaryProfessionLevel, this.primaryProfession,
 		this.secondPrimaryProfessionLevel, this.secondPrimaryProfession, this.averageItemLevel,
 		this.ilvlHead, this.ilvlNeck, this.ilvlShoulder, this.ilvlBack, this.ilvlChest,
 		this.ilvlWrist, this.ilvlHands, this.ilvlWaist, this.ilvlLegs, this.ilvlFeet,
@@ -214,4 +221,48 @@ function enchantCheck(item) {
 function pull(name, realm) {
 	var char = new Character(name, realm);
 	return char.getCharacterInfo;
+}
+
+// Class is returned as an integer. This returns the name of the class.
+function getCharacterClass(job) {
+    switch(job) {
+      case 1:
+        return "Warrior";
+        break;
+      case 2:
+        return "Paladin";
+        break;
+      case 3:
+        return "Hunter";
+        break;
+      case 4:
+        return "Rogue";
+        break;
+      case 5:
+        return "Priest";
+        break;
+      case 6:
+        return "Death Knight";
+        break;
+      case 7:
+        return "Shaman";
+        break;
+      case 8:
+        return "Mage";
+        break;
+      case 9:
+        return "Warlock";
+        break;
+      case 10:
+        return "Monk";
+        break;
+      case 11:
+        return "Druid";
+        break;
+      case 12:
+        return "Demon Hunter";
+        break;
+      default:
+        return "Uhhh wut";
+    }
 }
