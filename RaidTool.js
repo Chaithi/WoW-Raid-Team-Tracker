@@ -97,41 +97,40 @@ function Character(name, realm) {
 		this.secondPrimaryProfessionLevel = this.info.professions.primary[1].rank;
 	}
 	
-	this.progressionCheck = function() {
-		// Emerald Nightmare
-		for (i= 0; i < 7; i++)
+	// Emerald Nightmare
+	for (i= 0; i < 7; i++)
+	{
+		if(this.info.progression.raids[35].bosses[i].normalKills != 0)
 		{
-			if(this.info.progression.raids[35].bosses[i].normalKills != 0)
-			{
-			  this.emeraldNightmareNormalKills+=this.info.progression.raids[35].bosses[i].normalKills;
-			}
-			if(this.info.progression.raids[35].bosses[i].heroicKills != 0)
-			{
-			  this.emeraldNightmareHeroicKills+=this.info.progression.raids[35].bosses[i].heroicKills;
-			}
-			if(this.info.progression.raids[35].bosses[i].mythicKills != 0)
-			{
-			  this.emeraldNightmareMythicKills+=this.info.progression.raids[35].bosses[i].mythicKills;
-			}  
+		  this.emeraldNightmareNormalKills+=this.info.progression.raids[35].bosses[i].normalKills;
 		}
-		// Nighthold
-		for (i= 0; i < 10; i++)
+		if(this.info.progression.raids[35].bosses[i].heroicKills != 0)
 		{
-			if(this.info.progression.raids[36].bosses[i].normalKills != 0)
-			{
-				this.nightholdNormalKills+=this.info.progression.raids[36].bosses[i].normalKills;
-			}
-			if(this.info.progression.raids[36].bosses[i].heroicKills != 0)
-			{
-				this.nightholdHeroicKills+=this.info.progression.raids[36].bosses[i].heroicKills;
-			}
-			if(this.info.progression.raids[36].bosses[i].mythicKills != 0)
-			{
-				this.nightholdMythicKills+=this.info.progression.raids[36].bosses[i].mythicKills;
-			}  
+		  this.emeraldNightmareHeroicKills+=this.info.progression.raids[35].bosses[i].heroicKills;
 		}
+		if(this.info.progression.raids[35].bosses[i].mythicKills != 0)
+		{
+		  this.emeraldNightmareMythicKills+=this.info.progression.raids[35].bosses[i].mythicKills;
+		}  
 	}
-    this.getCharacterInfo = [
+	// The Nighthold
+	for (i= 0; i < 10; i++)
+	{
+		if(this.info.progression.raids[36].bosses[i].normalKills != 0)
+		{
+			this.nightholdNormalKills+=this.info.progression.raids[36].bosses[i].normalKills;
+		}
+		if(this.info.progression.raids[36].bosses[i].heroicKills != 0)
+		{
+			this.nightholdHeroicKills+=this.info.progression.raids[36].bosses[i].heroicKills;
+		}
+		if(this.info.progression.raids[36].bosses[i].mythicKills != 0)
+		{
+			this.nightholdMythicKills+=this.info.progression.raids[36].bosses[i].mythicKills;
+		}  
+	}
+   	
+	this.getCharacterInfo = [
 		this.guild, this.level, this.class, this.primaryProfessionLevel, this.primaryProfession,
 		this.secondPrimaryProfessionLevel, this.secondPrimaryProfession, this.averageItemLevel,
 		this.ilvlHead, this.ilvlNeck, this.ilvlShoulder, this.ilvlBack, this.ilvlChest,
@@ -149,7 +148,7 @@ function getInfoFromAPI(name, realm) {
 	var json,
 		info;
 		try {
-			json = UrlFetchApp.fetch("https://us.api.battle.net/wow/character/"+realm+"/"+name+"?fields=items,statistics,progression,professions,guild&locale=en_US&apikey=" + APIKEY),
+			json = UrlFetchApp.fetch("https://us.api.battle.net/wow/character/"+realm+"/"+name+"?fields=items,progression,professions,guild&locale=en_US&apikey=" + APIKEY),
 			info = JSON.parse(json.getContentText());
 		} catch(e) {
 			return e;
@@ -206,10 +205,7 @@ function enchantCheck(item) {
 	}
 	if (mark.indexOf(item.tooltipParams["enchant"]) > -1) {
 		return "Mark";
-	} else {
-		return "None";
-	}
-	if (binding.indexOf(item.tooltipParams["enchant"]) > -1) {
+	} else if (binding.indexOf(item.tooltipParams["enchant"]) > -1) {
 		return "Binding";
 	} else if (word.indexOf(item.tooltipParams["enchant"]) > -1) {
 		return "Word";
