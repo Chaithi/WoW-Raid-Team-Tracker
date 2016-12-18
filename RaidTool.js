@@ -75,6 +75,9 @@ function Character(name, realm) {
 	this.emeraldNightmareNormalKills = 0;
 	this.emeraldNightmareHeroicKills = 0;
 	this.emeraldNightmareMythicKills = 0;
+	this.tovNormalKills = 0;
+    	this.tovHeroicKills = 0;
+    	this.tovMythicKills = 0;
 	this.nightholdNormalKills = 0;
 	this.nightholdHeroicKills = 0;
 	this.nightholdMythicKills = 0;
@@ -113,22 +116,40 @@ function Character(name, realm) {
 		  this.emeraldNightmareMythicKills+=this.info.progression.raids[35].bosses[i].mythicKills;
 		}  
 	}
-	// The Nighthold
-	for (i= 0; i < 10; i++)
-	{
-		if(this.info.progression.raids[36].bosses[i].normalKills != 0)
-		{
-			this.nightholdNormalKills+=this.info.progression.raids[36].bosses[i].normalKills;
-		}
-		if(this.info.progression.raids[36].bosses[i].heroicKills != 0)
-		{
-			this.nightholdHeroicKills+=this.info.progression.raids[36].bosses[i].heroicKills;
-		}
-		if(this.info.progression.raids[36].bosses[i].mythicKills != 0)
-		{
-			this.nightholdMythicKills+=this.info.progression.raids[36].bosses[i].mythicKills;
-		}  
-	}
+  	// Trial of Valor
+  	for (i= 0; i < 3; i++)
+ 	{
+    		if(this.info.progression.raids[36].bosses[i].normalKills != 0)
+    		{
+      			this.tovNormalKills+=this.info.progression.raids[36].bosses[i].normalKills;
+    		}
+    		if(this.info.progression.raids[36].bosses[i].heroicKills != 0)
+    		{
+      			this.tovHeroicKills+=this.info.progression.raids[36].bosses[i].heroicKills;
+    		}
+    		if(this.info.progression.raids[36].bosses[i].mythicKills != 0)
+    		{
+      			this.tovMythicKills+=this.info.progression.raids[36].bosses[i].mythicKills;
+    		}  
+  	}
+    
+    
+	// Nighthold
+  	for (i= 0; i < 10; i++)
+  	{
+	    if(this.info.progression.raids[37].bosses[i].normalKills != 0)
+	    {
+	      this.nightholdNormalKills+=this.info.progression.raids[36].bosses[i].normalKills;
+	    }
+	    if(this.info.progression.raids[37].bosses[i].heroicKills != 0)
+	    {
+	      this.nightholdHeroicKills+=this.info.progression.raids[36].bosses[i].heroicKills;
+	    }
+	    if(this.info.progression.raids[37].bosses[i].mythicKills != 0)
+	    {
+	      this.nightholdMythicKills+=this.info.progression.raids[36].bosses[i].mythicKills;
+	    }  
+  	}
    	
 	this.getCharacterInfo = [
 		this.guild, this.level, this.class, this.primaryProfessionLevel, this.primaryProfession,
@@ -140,6 +161,7 @@ function Character(name, realm) {
 		this.backIsTier, this.chestIsTier, this.handsIsTier, this.legsIsTier,
 		this.neckEnchant, this.backEnchant, this.ring1Enchant, this.ring2Enchant,
 		this.emeraldNightmareNormalKills, this.emeraldNightmareHeroicKills, this.emeraldNightmareMythicKills,
+		this.tovNormalKills, this.tovHeroicKills, this.tovMythicKills,
 		this.nightholdNormalKills, this.nightholdHeroicKills, this.nightholdMythicKills
     ];
 }
