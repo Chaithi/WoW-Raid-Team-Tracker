@@ -139,15 +139,15 @@ function Character(name, realm) {
   	{
 	    if(this.info.progression.raids[37].bosses[i].normalKills != 0)
 	    {
-	      this.nightholdNormalKills+=this.info.progression.raids[36].bosses[i].normalKills;
+	      this.nightholdNormalKills+=this.info.progression.raids[37].bosses[i].normalKills;
 	    }
 	    if(this.info.progression.raids[37].bosses[i].heroicKills != 0)
 	    {
-	      this.nightholdHeroicKills+=this.info.progression.raids[36].bosses[i].heroicKills;
+	      this.nightholdHeroicKills+=this.info.progression.raids[37].bosses[i].heroicKills;
 	    }
 	    if(this.info.progression.raids[37].bosses[i].mythicKills != 0)
 	    {
-	      this.nightholdMythicKills+=this.info.progression.raids[36].bosses[i].mythicKills;
+	      this.nightholdMythicKills+=this.info.progression.raids[37].bosses[i].mythicKills;
 	    }  
   	}
    	
