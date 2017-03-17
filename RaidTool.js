@@ -203,7 +203,7 @@ function tierCheck(item) {
 		return true;
 	} else if (item.name.indexOf("Eagletalon") > -1) { // Hunter
 		return true;
-	} else if (item.name.indexOf("of Bound Elements") > -1) { // Shaman
+	} else if (item.name.indexOf("of Shackled Elements") > -1) { // Shaman
 		return true;
 	} else if (item.name.indexOf("of the Highlord") > -1) { // Paladin
 		return true;
